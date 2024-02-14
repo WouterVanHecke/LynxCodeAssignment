@@ -1,3 +1,4 @@
+import { ParkingStructure } from "@/types";
 import React, { useMemo } from "react";
 import { FaParking } from "react-icons/fa";
 

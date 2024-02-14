@@ -1,4 +1,4 @@
-type ParkingStructure = {
+export type ParkingStructure = {
   name: string;
   description: string;
   isOpen: boolean;
@@ -10,3 +10,13 @@ type ParkingStructure = {
   category: string;
   type: string;
 };
+
+export enum Sorting {
+  Name = "NAME",
+  AvailableSpaces = "AVAILABLE SPACES",
+}
+
+export enum SortingDirection {
+  Descending = "DESC",
+  Ascending = "ASC",
+}
