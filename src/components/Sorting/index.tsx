@@ -14,7 +14,7 @@ const SortingComponent = (props: Props) => {
   return (
     <div className="flex pb-2">
       <div
-        className={`flex bg-gray-800 w-fit p-1 px-4 rounded-xl ml-4 cursor-pointer ${
+        className={`flex bg-gray-800 w-fit p-1 px-4 rounded-xl cursor-pointer ${
           sorting === Sorting.Name ? "bg-white" : "bg-gray-800"
         }`}
         onClick={() => handleSortingPress(Sorting.Name)}
@@ -34,7 +34,9 @@ const SortingComponent = (props: Props) => {
             />
           ))}
         <span
-          className={`${sorting === Sorting.Name ? "text-black" : "text-white"} font-bold pl-2`}
+          className={`${sorting === Sorting.Name ? "text-black" : "text-white"} font-bold ${
+            sorting === Sorting.Name ? "pl-2" : "pl-0"
+          }`}
         >
           Name
         </span>
@@ -62,7 +64,7 @@ const SortingComponent = (props: Props) => {
         <span
           className={`${
             sorting === Sorting.AvailableSpaces ? "text-black" : "text-white"
-          } font-bold pl-2`}
+          } font-bold ${sorting === Sorting.AvailableSpaces ? "pl-2" : "pl-0"}`}
         >
           Available spaces
         </span>
