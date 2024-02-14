@@ -12,6 +12,7 @@ const Home = () => {
   const [sortingDirection, setSortingDirection] = useState<SortingDirection>(
     SortingDirection.Descending
   );
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,21 +56,36 @@ const Home = () => {
     [sorting]
   );
 
+  const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  }, []);
+
   const formattedParkingStructures = useMemo(() => {
+    const filteredParkingStructures =
+      searchQuery.length === 0
+        ? parkingStructures
+        : parkingStructures.filter((parking) =>
+            parking.name.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+
     if (sorting === Sorting.AvailableSpaces) {
       if (sortingDirection === SortingDirection.Descending) {
-        return parkingStructures.sort((a, b) => b.availableSpaces - a.availableSpaces);
+        return filteredParkingStructures.sort((a, b) => b.availableSpaces - a.availableSpaces);
       }
 
-      return parkingStructures.sort((a, b) => a.availableSpaces - b.availableSpaces);
+      return filteredParkingStructures.sort((a, b) => a.availableSpaces - b.availableSpaces);
     }
 
     if (sortingDirection === SortingDirection.Descending) {
-      return parkingStructures.sort((a, b) => b.name.localeCompare(a.name));
+      return filteredParkingStructures.sort((a, b) =>
+        b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+      );
     }
 
-    return parkingStructures.sort((a, b) => a.name.localeCompare(b.name));
-  }, [parkingStructures, sorting, sortingDirection]);
+    return filteredParkingStructures.sort((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    );
+  }, [parkingStructures, searchQuery, sorting, sortingDirection]);
 
   return (
     <div className="w-screen h-screen bg-black p-12 overflow-y-scroll">
@@ -81,8 +97,17 @@ const Home = () => {
         handleSortingPress={handleSortingPress}
       />
 
+      <input
+        type="text"
+        name={"search"}
+        value={searchQuery}
+        onChange={handleSearchChange}
+        className="pl-2 rounded-lg bg-gray-700 p-1 my-2 text-white"
+        placeholder="Search..."
+      />
+
       <div className="flex items-center">
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap w-full">
           {formattedParkingStructures.map((parking) => (
             <ParkingStructureItem key={parking.name} item={parking} />
           ))}
