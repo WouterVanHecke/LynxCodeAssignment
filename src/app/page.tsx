@@ -1,5 +1,7 @@
+import Account from "@/pages/account";
+
 const Root = () => {
-  return null;
+  return <Account />;
 };
 
 export default Root;
