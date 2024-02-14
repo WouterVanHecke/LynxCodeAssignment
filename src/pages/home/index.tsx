@@ -1,11 +1,17 @@
 "use client";
 
 import ParkingStructureItem from "@/components/ParkingStructureItem";
+import Profile from "@/components/Profile";
 import SortingComponent from "@/components/Sorting";
 import { ParkingStructure, Sorting, SortingDirection } from "@/types";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
 
-const Home = () => {
+interface Props {
+  setHasAccount: Dispatch<SetStateAction<boolean | undefined>>;
+}
+const Home = (props: Props) => {
+  const { setHasAccount } = props;
+
   const [parkingStructures, setParkingStructures] = useState<ParkingStructure[]>([]);
 
   const [sorting, setSorting] = useState<Sorting>(Sorting.AvailableSpaces);
@@ -89,7 +95,10 @@ const Home = () => {
 
   return (
     <div className="w-screen h-screen bg-black p-12 overflow-y-scroll">
-      <p className="text-3xl text-white font-bold pb-12">Parking Structures</p>
+      <div className="flex justify-between">
+        <p className="text-3xl text-white font-bold pb-12">Parking Structures</p>
+        <Profile setHasAccount={setHasAccount} />
+      </div>
 
       <SortingComponent
         sorting={sorting}

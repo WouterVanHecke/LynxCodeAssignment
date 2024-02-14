@@ -20,7 +20,7 @@ const Root = () => {
     return <Account setHasAccount={setHasAccount} />;
   }
 
-  return <Home />;
+  return <Home setHasAccount={setHasAccount} />;
 };
 
 export default Root;
