@@ -1,6 +1,7 @@
 "use client";
 
 import Account from "@/pages/account";
+import Home from "@/pages/home";
 import { useEffect, useState } from "react";
 
 const Root = () => {
@@ -19,7 +20,7 @@ const Root = () => {
     return <Account setHasAccount={setHasAccount} />;
   }
 
-  return null;
+  return <Home />;
 };
 
 export default Root;
