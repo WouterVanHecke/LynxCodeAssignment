@@ -1,4 +1,5 @@
 import { ParkingStructure } from "@/types";
+import Link from "next/link";
 import React, { useMemo } from "react";
 import { FaParking } from "react-icons/fa";
 
@@ -12,7 +13,10 @@ const ParkingStructureItem = (props: Props) => {
   const iconColor = useMemo(() => (item.isOpen ? "green" : "red"), [item.isOpen]);
 
   return (
-    <div className="p-6 border-b border-slate-700 w-2/5 mr-16">
+    <Link
+      href={{ pathname: "/details", query: item }}
+      className={`p-6 border-b border-slate-700 w-2/5 mr-16 cursor-pointer`}
+    >
       <div className="flex items-center">
         <FaParking color={iconColor} size={80} />
         <div>
@@ -20,7 +24,7 @@ const ParkingStructureItem = (props: Props) => {
           <p className="text-white text-md ml-4">Available spaces: {item.availableSpaces}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
