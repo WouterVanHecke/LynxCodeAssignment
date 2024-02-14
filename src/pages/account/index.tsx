@@ -1,7 +1,7 @@
 "use client";
 
 import FieldInput from "@/components/FieldInput";
-import React, { useCallback, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 /**
  * We need:
@@ -12,14 +12,25 @@ import React, { useCallback, useState } from "react";
  * model
  */
 
-const Account = () => {
+interface Props {
+  setHasAccount: Dispatch<SetStateAction<boolean | undefined>>;
+}
+
+const Account = (props: Props) => {
+  const { setHasAccount } = props;
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [licensePlate, setLicensePlate] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
 
-  const submitAccountInfo = useCallback(() => {}, []);
+  const submitAccountInfo = useCallback(() => {
+    const account = { firstName, lastName, licensePlate, brand, model };
+
+    localStorage.setItem("account", JSON.stringify(account));
+    setHasAccount(true);
+  }, [brand, firstName, lastName, licensePlate, model, setHasAccount]);
 
   const handleFirstNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
